@@ -1,7 +1,7 @@
 {
-  "name": "Spendy - See What Money Really Costs",
-  "short_name": "Spendy",
-  "description": "Track purchases in terms of time worked and see what money really costs.",
+  "name": "Benji",
+  "short_name": "Benji",
+  "description": "See every price in time.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

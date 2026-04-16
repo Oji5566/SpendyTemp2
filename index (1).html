@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Spendy</title>
+  <title>Benji</title>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0B1020">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="Spendy">
+  <meta name="apple-mobile-web-app-title" content="Benji">
   <style>
     /* ============================================================
        DESIGN TOKENS — Fluent UI 2 iOS
@@ -152,11 +152,29 @@
     }
     .btn-primary:active { opacity: .85; transform: scale(.98); }
 
-    .auth-toggle {
-      margin-top: 20px;
-      font-size: 14px; color: var(--color-fg-2); text-align: center;
+    .auth-mode-toggle {
+      display: flex;
+      width: 100%;
+      gap: 8px;
+      margin-bottom: 28px;
     }
-    .auth-toggle a { color: var(--color-brand); font-weight: 600; cursor: pointer; }
+    .auth-mode-btn {
+      flex: 1; height: 48px;
+      background: none;
+      border: 1.5px solid var(--color-stroke-1);
+      border-radius: var(--radius-md);
+      font-size: 16px; font-weight: 600; font-family: var(--font);
+      color: var(--color-fg-2);
+      cursor: pointer;
+      transition: background var(--t-fast), color var(--t-fast), border-color var(--t-fast);
+    }
+    .auth-mode-btn.active {
+      background: var(--color-brand);
+      border-color: var(--color-brand);
+      color: white;
+    }
+
+
 
     .error-msg {
       font-size: 13px; color: var(--color-error);
@@ -348,7 +366,7 @@
     }
     /* Watermark */
     .dollar-bill::after {
-      content: 'SPENDY';
+      content: 'BENJI';
       position: absolute;
       font-size: 44px; font-weight: 900;
       color: rgba(255,255,255,.04);
@@ -991,6 +1009,20 @@
       margin-top: 24px;
     }
 
+    .auth-mode-btn {
+      min-height: 56px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.06);
+      color: var(--color-fg-2);
+    }
+
+    .auth-mode-btn.active {
+      background: linear-gradient(135deg, var(--color-brand), var(--color-brand-2));
+      border-color: transparent;
+      color: #fff;
+    }
+
     .auth-toggle a,
     .btn-link,
     .btn-logout,
@@ -1188,17 +1220,29 @@
     }
 
     #tab-calculator {
-      padding: 28px 20px 0;
+      padding: 0;
       gap: 16px;
       background: transparent;
     }
 
     .calculator-header {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      position: relative;
-      z-index: 1;
+      background: linear-gradient(180deg, rgba(9,15,27,.96), rgba(9,15,27,.72));
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      padding: 28px 20px 16px;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      gap: 0;
+      flex-shrink: 0;
+    }
+
+    .dollar-bill {
+      margin: 0 20px;
+    }
+
+    .keypad-container {
+      flex: 1;
+      min-height: 0;
+      padding: 0 20px 16px;
     }
 
     .surface-kicker {
@@ -1223,11 +1267,11 @@
     }
 
     .calculator-title {
-      font-size: 38px;
-      line-height: 1;
-      letter-spacing: -.05em;
+      font-size: 34px;
+      line-height: 1.04;
+      letter-spacing: -.045em;
       color: #fff;
-      margin-bottom: 8px;
+      margin-bottom: 0;
     }
 
     .calculator-subtitle {
@@ -1752,6 +1796,146 @@
         font-size: 46px;
       }
     }
+
+    /* ---- Sheet amount restructure ---- */
+    .sheet-amount-overline {
+      margin-top: 16px;
+    }
+
+    .sheet-amount {
+      display: block;
+      margin-top: 4px;
+      min-height: auto;
+      padding: 0;
+      border-radius: 0;
+      background: none;
+      border: none;
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    /* ---- Watch List button ---- */
+    .action-btn.watchlist-btn {
+      background: rgba(255, 200, 0, 0.14);
+      color: #FFE066;
+      border: 1px solid rgba(255, 200, 0, 0.22);
+    }
+
+    .action-btn.skip-btn {
+      background: rgba(255,123,139,.12);
+      color: #FFD0D6;
+      border: 1px solid rgba(255,123,139,.18);
+    }
+
+    /* ---- Do not track row ---- */
+    .action-row-2 {
+      margin-top: 8px;
+      display: flex;
+    }
+
+    .btn-notrack {
+      flex: 1;
+      height: 48px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 18px;
+      color: var(--color-fg-2);
+      font-size: 14px;
+      font-weight: 600;
+      font-family: var(--font);
+      cursor: pointer;
+      transition: opacity var(--t-fast), transform var(--t-fast);
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-notrack:active { opacity: .85; transform: scale(.98); }
+
+    /* ---- Watchlist yellow entry cards ---- */
+    .entry-card.watchlist-card {
+      background: rgba(255, 200, 0, 0.08);
+      border: 1px solid rgba(255, 200, 0, 0.22);
+    }
+
+    .entry-badge.watchlist {
+      background: rgba(255, 200, 0, 0.16);
+      color: #FFE066;
+    }
+
+    .entry-badge.skip {
+      background: rgba(255,123,139,.14);
+      color: #FFD0D6;
+    }
+
+    /* ---- History edit pane ---- */
+    .entry-card { cursor: pointer; }
+    .entry-detail-pane {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 18px;
+      padding: 14px;
+      margin-top: -4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .entry-detail-pane .input-field {
+      min-height: 44px;
+      font-size: 14px;
+      padding: 0 12px;
+    }
+    .entry-detail-pane .detail-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .entry-detail-pane .btn-detail-save {
+      flex: 2; height: 42px;
+      background: linear-gradient(135deg, var(--color-brand), var(--color-brand-2));
+      border: none; border-radius: 14px;
+      color: #fff; font-size: 14px; font-weight: 700; font-family: var(--font);
+      cursor: pointer;
+    }
+    .entry-detail-pane .btn-detail-cancel {
+      flex: 1; height: 42px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 14px;
+      color: var(--color-fg-2); font-size: 14px; font-weight: 600; font-family: var(--font);
+      cursor: pointer;
+    }
+    .entry-detail-pane .btn-detail-delete {
+      flex: 1; height: 42px;
+      background: rgba(255,123,139,.12);
+      border: 1px solid rgba(255,123,139,.18);
+      border-radius: 14px;
+      color: #FFD0D6; font-size: 14px; font-weight: 600; font-family: var(--font);
+      cursor: pointer;
+    }
+
+    /* ---- Category reorder/edit controls ---- */
+    .category-row-controls {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+    .btn-cat-action {
+      width: 30px; height: 30px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+      cursor: pointer;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.05);
+      color: var(--color-fg-2);
+      font-family: var(--font);
+    }
+    .btn-cat-edit {
+      color: var(--color-brand);
+      background: rgba(124,134,255,.10);
+      border-color: rgba(124,134,255,.18);
+    }
+    .btn-cat-up, .btn-cat-down {
+      color: var(--color-fg-2);
+    }
   </style>
 
 </head>
@@ -1769,8 +1953,13 @@
           <path d="M26 9v3c4 .7 7 3.6 7 7h-5c0-2-1.8-3.5-4-3.5s-4 1.5-4 3.5c0 2.1 1.6 3 5 3.8 5 1.3 11 2.8 11 9.7 0 3.4-3.1 6.2-7 6.9v3h-5v-3c-4-.7-7-3.6-7-7h5c0 2 1.8 3.5 4 3.5s4-1.5 4-3.5c0-2.1-1.6-3-5-3.8-5-1.3-11-2.8-11-9.7 0-3.4 3.1-6.2 7-6.9V9h5z"/>
         </svg>
       </div>
-      <div class="auth-title">Spendy</div>
-      <div class="auth-subtitle">Track spending through the lens of work time and make calmer purchase decisions.</div>
+      <div class="auth-title">Benji</div>
+
+      <!-- Mode toggle buttons -->
+      <div class="auth-mode-toggle">
+        <button type="button" class="auth-mode-btn active" id="auth-mode-login" onclick="switchAuthMode('login')">Log In</button>
+        <button type="button" class="auth-mode-btn" id="auth-mode-signup" onclick="switchAuthMode('signup')">Sign Up</button>
+      </div>
 
       <!-- Login Form -->
       <form class="auth-form" id="form-login" onsubmit="handleLogin(event)">
@@ -1804,7 +1993,7 @@
         <button type="submit" class="btn-primary">Create Account</button>
       </form>
 
-      <div class="auth-toggle" id="auth-toggle-login">
+      <div class="auth-toggle" id="auth-toggle-login" style="display:none">
         Don't have an account? <a onclick="switchAuthMode('signup')" role="button">Sign Up</a>
       </div>
       <div class="auth-toggle" id="auth-toggle-signup" style="display:none">
@@ -1833,15 +2022,7 @@
         <div class="step-emoji">👋</div>
         <div class="step-title">See every price in time</div>
         <div class="step-subtitle">A faster way to decide whether something is worth the work behind it.</div>
-        <div class="step-content">
-          <div style="background:var(--color-brand-tint);border-radius:var(--radius-xl);padding:20px">
-            <p style="font-size:15px;color:var(--color-fg-2);line-height:1.65">
-              Convert any purchase into
-              <strong style="color:var(--color-brand)">time you had to work</strong>
-              so the tradeoff feels immediate, clear, and easier to judge.
-            </p>
-          </div>
-        </div>
+        <div class="step-content"></div>
       </div>
 
       <!-- Step 2: Income Type -->
@@ -1942,11 +2123,9 @@
     <!-- === CALCULATOR TAB === -->
     <div class="tab-content active" id="tab-calculator">
       <div class="calculator-header">
-        <div class="surface-kicker">Live conversion</div>
         <div class="calculator-title-row">
           <div>
-            <div class="calculator-title">Cost in time</div>
-            <div class="calculator-subtitle">Type any amount and see the work behind it instantly.</div>
+            <div class="calculator-title">Benji</div>
           </div>
           <div class="calculator-rate-chip" id="calculator-rate-chip">$0.0000 / min</div>
         </div>
@@ -1956,9 +2135,7 @@
         <div class="bill-label">Purchase amount</div>
         <div class="bill-amount" id="bill-amount">$0</div>
         <div class="bill-divider"></div>
-        <div class="bill-label">Time to earn</div>
         <div class="bill-minutes" id="bill-minutes">0 mins</div>
-        <div class="bill-caption" id="bill-caption">Enter an amount to reveal the work behind it.</div>
       </div>
 
       <div class="keypad-container">
@@ -2007,6 +2184,15 @@
     </div><!-- end #tab-settings -->
 
 
+    <!-- === WATCHLIST TAB === -->
+    <div class="tab-content" id="tab-watchlist">
+      <div class="history-header">
+        <div class="history-title">Watchlist</div>
+      </div>
+      <div class="history-body" id="watchlist-body"></div>
+    </div><!-- end #tab-watchlist -->
+
+
     <!-- Tab Bar -->
     <nav class="tab-bar" role="tablist">
       <button class="tab-btn active" type="button" data-tab="calculator" onclick="switchTab('calculator')" aria-label="Calculator">
@@ -2034,6 +2220,13 @@
         </svg>
         History
       </button>
+      <button class="tab-btn" type="button" data-tab="watchlist" onclick="switchTab('watchlist')" aria-label="Watchlist">
+        <!-- Bookmark icon -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+        </svg>
+        Watchlist
+      </button>
       <button class="tab-btn" type="button" data-tab="settings" onclick="switchTab('settings')" aria-label="Settings">
         <!-- Gear icon -->
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -2053,23 +2246,23 @@
       <div class="sheet-result">
         <div class="sheet-overline">Time to earn</div>
         <div class="sheet-time" id="sheet-time-text"></div>
-        <div class="sheet-amount-wrap">
-          <span class="sheet-amount-label">Purchase</span>
-          <div class="sheet-amount" id="sheet-amount-text"></div>
-        </div>
-        <div class="sheet-equals" id="sheet-time-sub">at your current rate</div>
+        <div class="sheet-overline sheet-amount-overline">AMOUNT</div>
+        <div class="sheet-amount" id="sheet-amount-text"></div>
       </div>
 
       <div class="action-buttons" id="sheet-actions">
-        <button class="action-btn buy-btn"     type="button" onclick="selectAction('buy')">
-          <span class="btn-em">🛒</span><span>Bought it</span>
+        <button class="action-btn buy-btn"       type="button" onclick="selectAction('buy')">
+          <span class="btn-em">🛒</span><span>Buy</span>
         </button>
-        <button class="action-btn giveup-btn"  type="button" onclick="selectAction('give_up')">
-          <span class="btn-em">🚫</span><span>Skip it</span>
+        <button class="action-btn watchlist-btn" type="button" onclick="selectAction('watchlist')">
+          <span class="btn-em">👀</span><span>Watch List</span>
         </button>
-        <button class="action-btn notrack-btn" type="button" onclick="selectAction('no_track')">
-          <span class="btn-em">❌</span><span>Don't track</span>
+        <button class="action-btn skip-btn"      type="button" onclick="selectAction('give_up')">
+          <span class="btn-em">🚫</span><span>Skip</span>
         </button>
+      </div>
+      <div class="action-row-2" id="sheet-actions-2">
+        <button class="btn-notrack" type="button" onclick="selectAction('no_track')">Do not track</button>
       </div>
 
       <div class="sheet-form" id="sheet-form">
@@ -2238,10 +2431,13 @@ function switchAuthMode(mode) {
   const isSignup = mode === 'signup';
   document.getElementById('form-login').style.display      = isSignup ? 'none' : 'flex';
   document.getElementById('form-signup').style.display     = isSignup ? 'flex' : 'none';
-  document.getElementById('auth-toggle-login').style.display  = isSignup ? 'none'  : 'block';
-  document.getElementById('auth-toggle-signup').style.display = isSignup ? 'block' : 'none';
+  document.getElementById('auth-toggle-login').style.display  = 'none';
+  document.getElementById('auth-toggle-signup').style.display = 'none';
   const errId = isSignup ? 'signup-error' : 'login-error';
   setError(document.getElementById(errId), '');
+  // Update mode toggle buttons
+  document.getElementById('auth-mode-login').classList.toggle('active', !isSignup);
+  document.getElementById('auth-mode-signup').classList.toggle('active', isSignup);
 }
 
 async function handleLogin(e) {
@@ -2449,6 +2645,7 @@ function renderApp() {
   updateBillDisplay('0', rate);
   updateRateChip(rate);
   renderHistory();
+  renderWatchlist();
   renderSettings();
 }
 
@@ -2462,8 +2659,9 @@ function switchTab(tab) {
   document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
   document.getElementById('tab-' + tab).classList.add('active');
   document.querySelector(`.tab-btn[data-tab="${tab}"]`).classList.add('active');
-  if (tab === 'history')  renderHistory();
-  if (tab === 'settings') renderSettings();
+  if (tab === 'history')   renderHistory();
+  if (tab === 'watchlist') renderWatchlist();
+  if (tab === 'settings')  renderSettings();
 }
 
 /* ============================================================
@@ -2473,12 +2671,10 @@ function updateBillDisplay(input, rate) {
   const amount = parseFloat(input) || 0;
   const amountEl = document.getElementById('bill-amount');
   const minsEl = document.getElementById('bill-minutes');
-  const captionEl = document.getElementById('bill-caption');
 
   if (!input || input === '0') {
     amountEl.textContent = '$0';
     minsEl.textContent = '0 mins';
-    if (captionEl) captionEl.textContent = 'Enter an amount to reveal the work behind it.';
     return;
   }
 
@@ -2490,10 +2686,8 @@ function updateBillDisplay(input, rate) {
 
   if (rate > 0 && amount > 0) {
     minsEl.textContent = formatMinutes(amount / rate);
-    if (captionEl) captionEl.textContent = 'to earn at your current rate';
   } else {
     minsEl.textContent = '—';
-    if (captionEl) captionEl.textContent = 'Set your income in Settings to calculate time.';
   }
 }
 
@@ -2511,12 +2705,6 @@ function keyPress(key) {
 
   const rate = calcEarningPerMinute(getUserSettings());
   updateBillDisplay(calcInput, rate);
-
-  // Pulse animation
-  const el = document.getElementById('bill-amount');
-  el.classList.remove('pulse');
-  void el.offsetWidth; // Force reflow to restart CSS pulse animation
-  el.classList.add('pulse');
 }
 
 function handleEnter() {
@@ -2529,11 +2717,10 @@ function handleEnter() {
 
   document.getElementById('sheet-amount-text').textContent = formatCurrency(amount);
   document.getElementById('sheet-time-text').textContent = formatMinutes(minutes);
-  const sub = document.getElementById('sheet-time-sub');
-  if (sub) sub.textContent = rate > 0 ? 'at your current rate' : 'set your income to calculate time';
 
   // Reset to action buttons view
   document.getElementById('sheet-actions').style.display = 'flex';
+  document.getElementById('sheet-actions-2').style.display = 'flex';
   document.getElementById('sheet-form').classList.remove('visible');
   currentDecision = null;
   openSheet();
@@ -2549,6 +2736,7 @@ function closeSheet() {
   document.getElementById('result-sheet').classList.remove('open');
   document.getElementById('sheet-form').classList.remove('visible');
   document.getElementById('sheet-actions').style.display = 'flex';
+  document.getElementById('sheet-actions-2').style.display = 'flex';
   currentDecision = null;
 }
 
@@ -2557,6 +2745,7 @@ function selectAction(decision) {
 
   currentDecision = decision;
   document.getElementById('sheet-actions').style.display = 'none';
+  document.getElementById('sheet-actions-2').style.display = 'none';
 
   // Render category pills
   const categories = getUserCategories();
@@ -2600,6 +2789,7 @@ function saveEntry() {
   closeSheet();
   showSuccess();
   resetCalc();
+  renderWatchlist();
 }
 
 function cancelEntry() { closeSheet(); }
@@ -2617,7 +2807,7 @@ function showSuccess() {
   path.style.animation = 'none';
   void path.offsetWidth; // Force reflow to reset SVG animation before replaying
   path.style.animation = '';
-  setTimeout(() => overlay.classList.remove('visible'), 1500);
+  setTimeout(() => overlay.classList.remove('visible'), 900);
 }
 
 /* Keyboard support for calculator */
@@ -2660,7 +2850,7 @@ function getFilteredEntries(period) {
 
 function renderHistory() {
   const body    = document.getElementById('history-body');
-  const entries = getFilteredEntries(historyPeriod);
+  const entries = getFilteredEntries(historyPeriod).filter(e => e.decision !== 'watchlist');
 
   if (entries.length === 0) {
     body.innerHTML = `
@@ -2673,45 +2863,45 @@ function renderHistory() {
   }
 
   const bought   = entries.filter(e => e.decision === 'buy');
-  const gaveUp   = entries.filter(e => e.decision === 'give_up');
+  const skipped  = entries.filter(e => e.decision === 'give_up');
   const totalAmt = entries.reduce((s, e) => s + e.amount, 0);
   const totalMin = entries.reduce((s, e) => s + e.minutes, 0);
   const boughtAmt= bought.reduce((s, e) => s + e.amount, 0);
-  const gaveAmt  = gaveUp.reduce((s, e) => s + e.amount, 0);
+  const boughtMin= bought.reduce((s, e) => s + e.minutes, 0);
+  const skippedAmt = skipped.reduce((s, e) => s + e.amount, 0);
+  const skippedMin = skipped.reduce((s, e) => s + e.minutes, 0);
   const buyPct   = entries.length ? Math.round(bought.length / entries.length * 100) : 0;
-  const givePct  = 100 - buyPct;
+  const skipPct  = 100 - buyPct;
 
   let html = `
     <div class="stats-grid">
       <div class="stat-card">
         <div class="stat-label">Total Tracked</div>
         <div class="stat-value">${entries.length}</div>
-        <div class="stat-sub">${formatMinutes(totalMin)} of work</div>
       </div>
       <div class="stat-card">
         <div class="stat-label">Total Amount</div>
         <div class="stat-value">${formatCurrency(totalAmt)}</div>
-        <div class="stat-sub">${entries.length} entries</div>
       </div>
       <div class="stat-card">
         <div class="stat-label">Bought</div>
-        <div class="stat-value" style="color:var(--color-success)">${bought.length}</div>
-        <div class="stat-sub">${formatCurrency(boughtAmt)}</div>
+        <div class="stat-value" style="color:var(--color-success)">${formatCurrency(boughtAmt)}</div>
+        <div class="stat-sub">${formatMinutes(boughtMin)} of work</div>
       </div>
       <div class="stat-card">
-        <div class="stat-label">Given Up</div>
-        <div class="stat-value" style="color:var(--color-error)">${gaveUp.length}</div>
-        <div class="stat-sub">${formatCurrency(gaveAmt)} saved</div>
+        <div class="stat-label">Skipped</div>
+        <div class="stat-value" style="color:var(--color-error)">${formatCurrency(skippedAmt)}</div>
+        <div class="stat-sub">${formatMinutes(skippedMin)} of work</div>
       </div>
       <div class="ratio-card">
-        <div class="stat-label">Buy vs Give Up</div>
+        <div class="stat-label">Bought and Skipped</div>
         <div class="ratio-bar">
           <div class="ratio-bar-buy"  style="width:${buyPct}%"></div>
-          <div class="ratio-bar-give" style="width:${givePct}%"></div>
+          <div class="ratio-bar-give" style="width:${skipPct}%"></div>
         </div>
         <div class="ratio-labels">
           <span class="ratio-buy-label">🛒 ${buyPct}% bought</span>
-          <span class="ratio-give-label">${givePct}% gave up 🚫</span>
+          <span class="ratio-give-label">${skipPct}% skipped 🚫</span>
         </div>
       </div>
     </div>`;
@@ -2727,8 +2917,10 @@ function renderHistory() {
     html += `<div class="date-group"><div class="date-group-label">${escapeHtml(dateLabel)}</div>`;
     group.forEach(e => {
       const em = (e.category || '❓').split(' ')[0];
+      const badgeClass = e.decision === 'buy' ? 'buy' : 'skip';
+      const badgeLabel = e.decision === 'buy' ? 'Bought' : 'Skipped';
       html += `
-        <div class="entry-card">
+        <div class="entry-card" onclick="toggleEntryDetail(this, '${escapeHtml(e.id)}')" data-id="${escapeHtml(e.id)}">
           <div class="entry-emoji">${escapeHtml(em)}</div>
           <div class="entry-info">
             <div class="entry-name">${escapeHtml(e.name)}</div>
@@ -2737,9 +2929,7 @@ function renderHistory() {
           <div class="entry-right">
             <div class="entry-amount">${formatCurrency(e.amount)}</div>
             <div class="entry-work">${formatMinutes(e.minutes)}</div>
-            <div class="entry-badge ${e.decision === 'buy' ? 'buy' : 'give_up'}">
-              ${e.decision === 'buy' ? 'Bought' : 'Gave Up'}
-            </div>
+            <div class="entry-badge ${badgeClass}">${badgeLabel}</div>
           </div>
         </div>`;
     });
@@ -2760,6 +2950,140 @@ function relativeTime(iso) {
   if (days === 1) return 'Yesterday';
   if (days < 7)   return `${days}d ago`;
   return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+
+/* ============================================================
+   ENTRY EDITING (History)
+   ============================================================ */
+function selectDetailCategory(btn, catValue) {
+  const pane = btn.closest('.entry-detail-pane');
+  if (pane) {
+    pane.querySelector('[data-cat-sel]').value = catValue;
+    pane.querySelectorAll('.category-pill').forEach(p => p.classList.remove('selected'));
+  }
+  btn.classList.add('selected');
+}
+
+function toggleEntryDetail(cardEl, entryId) {
+  // If detail pane already open, close it
+  const existing = cardEl.nextElementSibling;
+  if (existing && existing.classList.contains('entry-detail-pane')) {
+    existing.remove();
+    return;
+  }
+  // Close any other open detail panes
+  document.querySelectorAll('.entry-detail-pane').forEach(p => p.remove());
+
+  const data = getCurrentUserData();
+  const entry = (data.entries || []).find(e => e.id === entryId);
+  if (!entry) return;
+
+  const categories = getUserCategories();
+  const catOptions = categories.map(cat =>
+    `<button class="category-pill${entry.category === cat ? ' selected' : ''}" type="button" onclick="selectDetailCategory(this,'${escapeHtml(cat)}')">${escapeHtml(cat)}</button>`
+  ).join('');
+
+  const pane = document.createElement('div');
+  pane.className = 'entry-detail-pane';
+  pane.innerHTML = `
+    <input class="input-field" type="text" value="${escapeHtml(entry.name)}" placeholder="Name" data-edit-name maxlength="80">
+    <div class="categories-scroll">${catOptions}</div>
+    <input type="hidden" data-cat-sel value="${escapeHtml(entry.category || '')}">
+    <input class="input-field" type="text" value="${escapeHtml(entry.notes || '')}" placeholder="Add a note…" data-edit-notes maxlength="200">
+    <div class="detail-actions">
+      <button class="btn-detail-save" type="button" onclick="saveEntryEdit('${escapeHtml(entryId)}', this.closest('.entry-detail-pane'))">Save</button>
+      <button class="btn-detail-cancel" type="button" onclick="this.closest('.entry-detail-pane').remove()">Cancel</button>
+      <button class="btn-detail-delete" type="button" onclick="deleteEntry('${escapeHtml(entryId)}')">Delete</button>
+    </div>`;
+  cardEl.after(pane);
+}
+
+function saveEntryEdit(entryId, pane) {
+  const newName = pane.querySelector('[data-edit-name]').value.trim() || 'Unnamed';
+  const newCat  = pane.querySelector('[data-cat-sel]').value || '❓ Other';
+  const newNotes= pane.querySelector('[data-edit-notes]').value.trim();
+  const data = getCurrentUserData();
+  const entry = (data.entries || []).find(e => e.id === entryId);
+  if (entry) {
+    entry.name = newName;
+    entry.category = newCat;
+    entry.notes = newNotes;
+    saveCurrentUserData(data);
+  }
+  pane.remove();
+  renderHistory();
+}
+
+function deleteEntry(entryId) {
+  const data = getCurrentUserData();
+  data.entries = (data.entries || []).filter(e => e.id !== entryId);
+  saveCurrentUserData(data);
+  renderHistory();
+}
+
+/* ============================================================
+   WATCHLIST
+   ============================================================ */
+function renderWatchlist() {
+  const body = document.getElementById('watchlist-body');
+  if (!body) return;
+  const allEntries = getUserEntries();
+  const entries = allEntries.filter(e => e.decision === 'watchlist');
+
+  if (entries.length === 0) {
+    body.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state-icon">👀</div>
+        <div class="empty-state-title">Watchlist is empty</div>
+        <div class="empty-state-text">Add items from the Calculator tab by choosing Watch List.</div>
+      </div>`;
+    return;
+  }
+
+  let html = '<div class="date-group">';
+  entries.forEach(e => {
+    const em = (e.category || '❓').split(' ')[0];
+    html += `
+      <div class="entry-card watchlist-card" onclick="showWatchlistActions('${escapeHtml(e.id)}')" data-id="${escapeHtml(e.id)}">
+        <div class="entry-emoji">${escapeHtml(em)}</div>
+        <div class="entry-info">
+          <div class="entry-name">${escapeHtml(e.name)}</div>
+          <div class="entry-time">${relativeTime(e.timestamp)}</div>
+        </div>
+        <div class="entry-right">
+          <div class="entry-amount">${formatCurrency(e.amount)}</div>
+          <div class="entry-work">${formatMinutes(e.minutes)}</div>
+          <div class="entry-badge watchlist">Watching</div>
+        </div>
+      </div>`;
+  });
+  html += '</div>';
+  body.innerHTML = html;
+}
+
+function showWatchlistActions(entryId) {
+  document.getElementById('modal-content').innerHTML = `
+    <div class="modal-title">What did you decide?</div>
+    <div class="modal-actions" style="flex-direction:column; gap:10px">
+      <button class="btn-modal-primary" type="button" onclick="resolveWatchlistItem('${escapeHtml(entryId)}','buy')">🛒 Buy</button>
+      <button class="btn-modal-cancel"  type="button" onclick="resolveWatchlistItem('${escapeHtml(entryId)}','give_up')" style="background:rgba(255,123,139,.12);color:#FFD0D6;border-color:rgba(255,123,139,.18)">🚫 Skip</button>
+      <button class="btn-modal-cancel"  type="button" onclick="resolveWatchlistItem('${escapeHtml(entryId)}','forget')">🗑 Forget</button>
+    </div>`;
+  openModal();
+}
+
+function resolveWatchlistItem(entryId, action) {
+  const data = getCurrentUserData();
+  if (action === 'forget') {
+    data.entries = (data.entries || []).filter(e => e.id !== entryId);
+  } else {
+    const entry = (data.entries || []).find(e => e.id === entryId);
+    if (entry) entry.decision = action;
+  }
+  saveCurrentUserData(data);
+  closeModal();
+  renderWatchlist();
+  renderHistory();
 }
 
 /* ============================================================
@@ -2846,10 +3170,14 @@ function renderSettings() {
       <div class="settings-section-label">Categories</div>
       <div class="settings-group">
         ${cats.map((cat, i) => {
-          const isDef = DEFAULT_CATEGORIES.includes(cat);
-          return `<div class="category-row ${isDef ? 'default' : 'custom'}">
-            <span class="category-row-name">${escapeHtml(cat)}</span>
-            <button class="btn-delete-cat" type="button" onclick="deleteCategory(${i})" aria-label="Delete category">×</button>
+          return `<div class="category-row" id="cat-row-${i}">
+            <span class="category-row-name" id="cat-name-${i}">${escapeHtml(cat)}</span>
+            <div class="category-row-controls">
+              <button class="btn-cat-action btn-cat-up"   type="button" onclick="moveCategoryUp(${i})"   title="Move up"   ${i === 0 ? 'disabled style="opacity:.3"' : ''}>↑</button>
+              <button class="btn-cat-action btn-cat-down" type="button" onclick="moveCategoryDown(${i})" title="Move down" ${i === cats.length-1 ? 'disabled style="opacity:.3"' : ''}>↓</button>
+              <button class="btn-cat-action btn-cat-edit" type="button" onclick="editCategoryInline(${i})" title="Edit">✏️</button>
+              <button class="btn-delete-cat"              type="button" onclick="deleteCategory(${i})"   aria-label="Delete category">×</button>
+            </div>
           </div>`;
         }).join('')}
         <div class="settings-row" style="border-top:1px solid var(--color-stroke-1)">
@@ -2916,10 +3244,61 @@ function refreshRateDisplays() {
 function deleteCategory(idx) {
   const data = getCurrentUserData();
   const cats = data.categories || [...DEFAULT_CATEGORIES];
-  if (DEFAULT_CATEGORIES.includes(cats[idx])) return; // protect defaults
   cats.splice(idx, 1);
   data.categories = cats;
   saveCurrentUserData(data);
+  renderSettings();
+}
+
+function moveCategoryUp(idx) {
+  if (idx === 0) return;
+  const data = getCurrentUserData();
+  const cats = data.categories || [...DEFAULT_CATEGORIES];
+  [cats[idx - 1], cats[idx]] = [cats[idx], cats[idx - 1]];
+  data.categories = cats;
+  saveCurrentUserData(data);
+  renderSettings();
+}
+
+function moveCategoryDown(idx) {
+  const data = getCurrentUserData();
+  const cats = data.categories || [...DEFAULT_CATEGORIES];
+  if (idx >= cats.length - 1) return;
+  [cats[idx], cats[idx + 1]] = [cats[idx + 1], cats[idx]];
+  data.categories = cats;
+  saveCurrentUserData(data);
+  renderSettings();
+}
+
+function editCategoryInline(idx) {
+  const data = getCurrentUserData();
+  const cats = data.categories || [...DEFAULT_CATEGORIES];
+  const currentVal = cats[idx];
+  document.getElementById('modal-content').innerHTML = `
+    <div class="modal-title">Edit Category</div>
+    <div class="input-group">
+      <label class="input-label" for="edit-cat-input">Emoji + Name</label>
+      <input class="input-field" type="text" id="edit-cat-input"
+        value="${escapeHtml(currentVal)}" maxlength="40">
+    </div>
+    <div class="modal-actions">
+      <button class="btn-modal-cancel"  type="button" onclick="closeModal()">Cancel</button>
+      <button class="btn-modal-primary" type="button" onclick="saveCategoryEdit(${idx})">Save</button>
+    </div>`;
+  openModal();
+  setTimeout(() => document.getElementById('edit-cat-input').focus(), 120);
+}
+
+function saveCategoryEdit(idx) {
+  const input = document.getElementById('edit-cat-input');
+  const val = input.value.trim();
+  if (!val) { input.focus(); return; }
+  const data = getCurrentUserData();
+  const cats = data.categories || [...DEFAULT_CATEGORIES];
+  cats[idx] = val;
+  data.categories = cats;
+  saveCurrentUserData(data);
+  closeModal();
   renderSettings();
 }
 
@@ -2972,12 +3351,25 @@ function clearHistory() {
 
 function exportData() {
   const data = getCurrentUserData();
-  const json = JSON.stringify({ username: currentUser, exportedAt: new Date().toISOString(), ...data }, null, 2);
+  // Exclude notes from exported entries (compatible approach)
+  const exportEntries = (data.entries || []).map(function(e) {
+    const copy = Object.assign({}, e);
+    delete copy.notes;
+    return copy;
+  });
+  const exportPayload = {
+    username:   currentUser,
+    exportedAt: new Date().toISOString(),
+    settings:   data.settings,
+    entries:    exportEntries,
+    categories: data.categories
+  };
+  const json = JSON.stringify(exportPayload, null, 2);
   const blob = new Blob([json], { type: 'application/json' });
   const url  = URL.createObjectURL(blob);
   const a    = Object.assign(document.createElement('a'), {
     href:     url,
-    download: `spendy-${currentUser}-${new Date().toISOString().split('T')[0]}.json`
+    download: `benji-${currentUser}-${new Date().toISOString().split('T')[0]}.json`
   });
   document.body.appendChild(a);
   a.click();
