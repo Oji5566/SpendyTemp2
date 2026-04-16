@@ -2955,6 +2955,15 @@ function relativeTime(iso) {
 /* ============================================================
    ENTRY EDITING (History)
    ============================================================ */
+function selectDetailCategory(btn, catValue) {
+  const pane = btn.closest('.entry-detail-pane');
+  if (pane) {
+    pane.querySelector('[data-cat-sel]').value = catValue;
+    pane.querySelectorAll('.category-pill').forEach(p => p.classList.remove('selected'));
+  }
+  btn.classList.add('selected');
+}
+
 function toggleEntryDetail(cardEl, entryId) {
   // If detail pane already open, close it
   const existing = cardEl.nextElementSibling;
@@ -2971,7 +2980,7 @@ function toggleEntryDetail(cardEl, entryId) {
 
   const categories = getUserCategories();
   const catOptions = categories.map(cat =>
-    `<button class="category-pill${entry.category === cat ? ' selected' : ''}" type="button" onclick="this.closest('.entry-detail-pane').querySelector('[data-cat-sel]').value='${escapeHtml(cat)}'; document.querySelectorAll('.entry-detail-pane .category-pill').forEach(p=>p.classList.remove('selected')); this.classList.add('selected')">${escapeHtml(cat)}</button>`
+    `<button class="category-pill${entry.category === cat ? ' selected' : ''}" type="button" onclick="selectDetailCategory(this,'${escapeHtml(cat)}')">${escapeHtml(cat)}</button>`
   ).join('');
 
   const pane = document.createElement('div');
@@ -3342,12 +3351,19 @@ function clearHistory() {
 
 function exportData() {
   const data = getCurrentUserData();
-  // Exclude notes from exported entries
-  const exportEntries = (data.entries || []).map(e => {
-    const { notes, ...rest } = e;
-    return rest;
+  // Exclude notes from exported entries (compatible approach)
+  const exportEntries = (data.entries || []).map(function(e) {
+    const copy = Object.assign({}, e);
+    delete copy.notes;
+    return copy;
   });
-  const exportPayload = { username: currentUser, exportedAt: new Date().toISOString(), settings: data.settings, entries: exportEntries, categories: data.categories };
+  const exportPayload = {
+    username:   currentUser,
+    exportedAt: new Date().toISOString(),
+    settings:   data.settings,
+    entries:    exportEntries,
+    categories: data.categories
+  };
   const json = JSON.stringify(exportPayload, null, 2);
   const blob = new Blob([json], { type: 'application/json' });
   const url  = URL.createObjectURL(blob);
